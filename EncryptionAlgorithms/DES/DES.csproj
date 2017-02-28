@@ -41,6 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Encryptor.cs" />
+    <Compile Include="Domain\SBox\SBoxAddresses.cs" />
+    <Compile Include="Domain\SBox\SBoxTable.cs" />
+    <Compile Include="Domain\SBox\SBoxTableFactory.cs" />
+    <Compile Include="Domain\SBox\SBoxTableService.cs" />
     <Compile Include="Misc\Extensions.cs" />
     <Compile Include="Domain\FFunction.cs" />
     <Compile Include="Domain\Block\PermutedBlock.cs" />
