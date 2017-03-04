@@ -40,15 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\DataBlock\FinalPermutedDataBlock.cs" />
+    <Compile Include="Domain\Key\CompressedPermutedKey.cs" />
     <Compile Include="Domain\Encryptor.cs" />
+    <Compile Include="Domain\HalvesBlock.cs" />
     <Compile Include="Domain\SBox\SBoxAddress.cs" />
+    <Compile Include="Domain\SBox\SBoxAddressFactory.cs" />
     <Compile Include="Domain\SBox\SBoxFunction.cs" />
+    <Compile Include="Domain\SBox\SBoxTable.cs" />
+    <Compile Include="Infrastructure\Parser.cs" />
     <Compile Include="Misc\BitArrayExtensions.cs" />
     <Compile Include="Domain\FFunction.cs" />
-    <Compile Include="Domain\Block\PermutedBlock.cs" />
-    <Compile Include="Domain\Block\PermutedBlockService.cs" />
-    <Compile Include="Domain\Key\PermutedKey.cs" />
-    <Compile Include="Domain\Key\PermutedKeyFactory.cs" />
+    <Compile Include="Domain\DataBlock\InitialPermutedDataBlock.cs" />
+    <Compile Include="Domain\Key\InitialPermutedKey.cs" />
+    <Compile Include="Domain\Key\CompressedPermutedKeyFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

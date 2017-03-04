@@ -1,5 +1,7 @@
-﻿using System.Collections;
-using System.Text;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DES.Misc
 {
@@ -30,14 +32,39 @@ namespace DES.Misc
             return result;
         }
 
-        public static BitArray Concat(this BitArray first, BitArray second)
+        public static BitArray Concat(this BitArray first, params BitArray[] arrays)
         {
-            bool[] combined = new bool[first.Length + second.Length];
+            bool[] combined = new bool[first.Length + arrays.Select(array => array.Length).Sum()];
 
             first.CopyTo(combined, 0);
-            second.CopyTo(combined, first.Length);
+            int startIndex = first.Length;
+            foreach (BitArray array in arrays)
+            {
+                array.CopyTo(combined, startIndex);
+                startIndex += array.Length;
+            }
 
             return new BitArray(combined);
+        }
+
+        public static BitArray Transform(this BitArray source, int[] transformationTable)
+        {
+            var resultArray = new BitArray(transformationTable.Length);
+
+            for (int i = 0; i < transformationTable.Length; i++)
+            {
+                resultArray[i] = source[transformationTable[i]];
+            }
+
+            return resultArray;
+        }
+
+        public static IEnumerable<TResult> Select<TResult>(this BitArray source, Func<bool, TResult> getElementFunc)
+        {
+            foreach (bool bit in source)
+            {
+                yield return getElementFunc(bit);
+            }
         }
     }
 }

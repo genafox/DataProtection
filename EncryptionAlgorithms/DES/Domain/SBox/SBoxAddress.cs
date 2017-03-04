@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
+using DES.Misc;
 
 namespace DES.Domain.SBox
 {
@@ -13,7 +15,7 @@ namespace DES.Domain.SBox
 			string binaryRowIndex = ToBinaryString(address[0]) + ToBinaryString(address[address.Length - 1]);
 			this.rowIndex = Convert.ToInt32(binaryRowIndex, 2);
 
-			string binaryColumnIndex = ToBinaryString(address[0]) + ToBinaryString(address[address.Length - 1]);
+		    string binaryColumnIndex = string.Join("", address.GetRange(1, 4).Select(ToBinaryString));
 			this.columnIndex = Convert.ToInt32(binaryColumnIndex, 2);
 		}
 

@@ -1,27 +1,47 @@
 ﻿using System.Collections;
-using DES.Domain.Block;
-using DES.Misc;
+using System.Collections.Generic;
+using System.Linq;
+using DES.Domain.DataBlock;
+using DES.Domain.Key;
 
 namespace DES.Domain
 {
     public class Encryptor
     {
-        private readonly PermutedBlockService permutedBlockService;
+        private const int RoundsCount = 16;
 
-        public Encryptor(PermutedBlockService permutedBlockService)
+        private readonly FFunction ffunction;
+        private readonly CompressedPermutedKeyFactory keyFactory;
+
+        public Encryptor(FFunction ffunction, CompressedPermutedKeyFactory keyFactory)
         {
-            this.permutedBlockService = permutedBlockService;
+            this.ffunction = ffunction;
+            this.keyFactory = keyFactory;
         }
 
-        public BitArray Encrypt(BitArray originalBlock)
+        public BitArray Encrypt(BitArray originalBlock, BitArray originalKey)
         {
-            BitArray initialPermutation = this.permutedBlockService.InitialPermutation(originalBlock);
+            var iterations = new Dictionary<int, HalvesBlock>
+            {
+                [0] = new InitialPermutedDataBlock(originalBlock).Halves
+            };
 
-            var zeroBlock = new PermutedBlock(
-                initialPermutation.GetRange(0, initialPermutation.Length / 2),
-                initialPermutation.GetRange(initialPermutation.Length / 2, initialPermutation.Length / 2));
+            IDictionary<int, CompressedPermutedKey> keys = keyFactory.Generate(originalKey);
 
+            for (int i = 1; i <= RoundsCount; i++)
+            {
+                HalvesBlock previousBlock = iterations[i - 1];
+                BitArray currentKey = keys[i].Value;
 
+                var left = previousBlock.Right;
+                var right = previousBlock.Left.Xor(this.ffunction.Invoke(previousBlock.Right, currentKey));
+
+                iterations.Add(i, new HalvesBlock(left, right));
+            }
+
+            BitArray encrypted = new FinalPermutedDataBlock(iterations.Last().Value).Value;
+
+            return encrypted;
         }
     }
 }
