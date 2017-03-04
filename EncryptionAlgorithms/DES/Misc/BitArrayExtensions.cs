@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DES.Misc
 {
-    public static class Extensions
+    public static class BitArrayExtensions
     {
         public static BitArray GetRange(this BitArray bits, int startIndex, int length)
         {

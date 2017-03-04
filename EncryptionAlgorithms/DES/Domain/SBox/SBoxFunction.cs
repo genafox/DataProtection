@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DES.Domain.SBox
 {
-	public class SBoxTableFactory
+	public class SBoxFunction
 	{
 		private static readonly Dictionary<int, int[]> S1 = new Dictionary<int, int[]>
 		{
@@ -67,5 +69,10 @@ namespace DES.Domain.SBox
 			[2] = new int[] { 7, 11, 4, 1, 9, 12, 14, 2, 0, 6, 10, 13, 15, 3, 5, 8 },
 			[3] = new int[] { 2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11 }
 		};
+
+		public BitArray Invoke(int function, SBoxAddress address)
+		{
+			var result = Convert.ToString(number, 2);
+		}
 	}
 }
