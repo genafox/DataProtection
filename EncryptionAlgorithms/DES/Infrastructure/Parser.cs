@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using DES.Misc;
 
 namespace DES.Infrastructure
@@ -11,20 +10,13 @@ namespace DES.Infrastructure
     public class Parser
     {
         private const int BytesIn64Bits = 8;
-
         private const int BitsInByte = 8;
 
-        public IEnumerable<BitArray> FromString(string message)
+        public IEnumerable<BitArray> Parse(string message)
         {
             byte[] messageBytes = Encoding.Default.GetBytes(message);
 
-            List<string> messageHexPairs = BitConverter.ToString(messageBytes).Split('-').ToList();
-
-            
-
-            messageBytes = messageHexPairs
-                .Select(x => Convert.ToByte(x, 16))
-                .ToArray();
+            messageBytes = CompleteTo64BitsBlocks(messageBytes);
 
             var result = new List<BitArray>();
 
@@ -40,20 +32,32 @@ namespace DES.Infrastructure
             return result;
         }
 
-        private string[] CompleteTo64BitsBlocks(string[] hexPairs)
+        public string GetHexString(IEnumerable<BitArray> bytesBlocks)
         {
-            if (hexPairs.Length * BytesIn64Bits % 64 > 0)
+            BitArray messageBits = new BitArray(new bool[0]).Concat(bytesBlocks.ToArray());
+
+            byte[] messageBytes = new byte[messageBits.Length / BitsInByte];
+            messageBits.CopyTo(messageBytes, 0);
+
+            string result = BitConverter.ToString(messageBytes);
+
+            return result.Replace("-", "");
+        }
+
+        private byte[] CompleteTo64BitsBlocks(byte[] messageBytes)
+        {
+            if (messageBytes.Length % BytesIn64Bits > 0)
             {
-                // 1 hex pair (FF) = 1 byte (1111 1111)
-                int filled64BitBlocksCount = hexPairs.Length * BitsInByte / 64;
+                int missedBytesCount = BytesIn64Bits - messageBytes.Length % BytesIn64Bits;
 
-                var result = new string[8 - (hexPairs.Length - filled64BitBlocksCount * BytesIn64Bits)];
+                var bytesBlocks = new byte[messageBytes.Length + missedBytesCount];
+                Array.Copy(messageBytes, bytesBlocks, messageBytes.Length);
+                Array.Copy(new byte[missedBytesCount], 0, bytesBlocks, messageBytes.Length, missedBytesCount);
 
-                for (int i = hexPairs.Length; i < result.Length; i++)
-                {
-                    result[i] = "00";
-                }
+                return bytesBlocks;
             }
+
+            return messageBytes;
         }
     }
 }

@@ -87,7 +87,7 @@ namespace DES.Domain.SBox
         {
             int tableItem = tables[functionId].GetItem(address);
 
-            string binaryString = Convert.ToString(tableItem, 2);
+            string binaryString = Convert.ToString(tableItem, 2).PadLeft(4, '0');
 
             bool[] binaryArray = binaryString
                 .ToCharArray()

@@ -11,9 +11,9 @@ namespace DES.Misc
         {
             var result = new BitArray(length);
 
-            for (int i = startIndex; i < startIndex + length; i++)
+            for (int i = 0, j = startIndex; length > 0; i++, j++, length--)
             {
-                result[i] = bits[i];
+                result[i] = bits[j];
             }
 
             return result;
@@ -21,13 +21,10 @@ namespace DES.Misc
 
         public static BitArray CycleLeftShift(this BitArray bits, int shift)
         {
-            var result = new BitArray(bits.Length);
+            BitArray shiftedPart = bits.GetRange(0, shift);
+            BitArray mainPart = bits.GetRange(shift, bits.Length - shift);
 
-            for (int originalIdx = 0, shiftedIdx = shift; originalIdx < bits.Length; originalIdx++)
-            {
-                shiftedIdx = shiftedIdx == bits.Length ? 0 : shiftedIdx + 1;
-                result[originalIdx] = bits[shiftedIdx];
-            }
+            BitArray result = mainPart.Concat(shiftedPart);
 
             return result;
         }
@@ -47,13 +44,13 @@ namespace DES.Misc
             return new BitArray(combined);
         }
 
-        public static BitArray Transform(this BitArray source, int[] transformationTable)
+        public static BitArray Transform(this BitArray source, int[] transformationTable, int tableStartIndex = 0)
         {
             var resultArray = new BitArray(transformationTable.Length);
 
             for (int i = 0; i < transformationTable.Length; i++)
             {
-                resultArray[i] = source[transformationTable[i]];
+                resultArray[i] = source[transformationTable[i] - tableStartIndex];
             }
 
             return resultArray;

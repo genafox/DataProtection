@@ -21,7 +21,7 @@ namespace DES.Domain.DataBlock
         {
             this.Value = parts.Right
                 .Concat(parts.Left)
-                .Transform(PermutationTable);
+                .Transform(PermutationTable, tableStartIndex: 1);
         }
 
         public BitArray Value { get; }

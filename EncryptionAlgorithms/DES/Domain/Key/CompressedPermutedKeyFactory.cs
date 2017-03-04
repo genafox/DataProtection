@@ -44,7 +44,7 @@ namespace DES.Domain.Key
 
                 var compressedKey = new CompressedPermutedKey(c, d);
 
-                keysHalves.Add(i, compressedKey.Halves);
+                keysHalves.Add(i, compressedKey.SourceHalves);
                 resultKeys.Add(i, compressedKey);
             }
 

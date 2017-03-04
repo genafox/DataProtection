@@ -19,7 +19,7 @@ namespace DES.Domain.Key
 
         public InitialPermutedKey(BitArray source)
         {
-            this.Halves = new HalvesBlock(source.Transform(PermutationTable));
+            this.Halves = new HalvesBlock(source.Transform(PermutationTable, tableStartIndex: 1));
         }
 
         public HalvesBlock Halves { get; }

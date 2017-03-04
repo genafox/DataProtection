@@ -19,7 +19,7 @@ namespace DES.Domain.DataBlock
 
         public InitialPermutedDataBlock(BitArray source)
         {
-            this.Halves = new HalvesBlock(source.Transform(PermutationTable));
+            this.Halves = new HalvesBlock(source.Transform(PermutationTable, tableStartIndex: 1));
         }
 
         public HalvesBlock Halves { get; }

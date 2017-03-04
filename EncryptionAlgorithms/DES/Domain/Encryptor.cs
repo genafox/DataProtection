@@ -31,7 +31,7 @@ namespace DES.Domain
             for (int i = 1; i <= RoundsCount; i++)
             {
                 HalvesBlock previousBlock = iterations[i - 1];
-                BitArray currentKey = keys[i].Value;
+                BitArray currentKey = keys[i].CompressedValue;
 
                 var left = previousBlock.Right;
                 var right = previousBlock.Left.Xor(this.ffunction.Invoke(previousBlock.Right, currentKey));

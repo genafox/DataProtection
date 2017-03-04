@@ -20,15 +20,14 @@ namespace DES.Domain.Key
 
         public CompressedPermutedKey(BitArray leftSource, BitArray rightSource)
         {
-            BitArray transformed = leftSource
+            this.SourceHalves = new HalvesBlock(leftSource, rightSource);
+            this.CompressedValue = leftSource
                 .Concat(rightSource)
-                .Transform(PermutationTable);
-
-            this.Halves = new HalvesBlock(transformed);
+                .Transform(PermutationTable, tableStartIndex: 1);
         }
 
-        public HalvesBlock Halves { get; }
+        public HalvesBlock SourceHalves { get; }
 
-        public BitArray Value => this.Halves.Left.Concat(this.Halves.Right);
+        public BitArray CompressedValue { get; }
     }
 }
