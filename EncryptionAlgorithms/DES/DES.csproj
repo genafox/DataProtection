@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +56,7 @@
     <Compile Include="Infrastructure\DecryptedToken.cs" />
     <Compile Include="Infrastructure\EncryptedToken.cs" />
     <Compile Include="Infrastructure\ParsedToken.cs" />
+    <Compile Include="IoC\ContainerConfigurator.cs" />
     <Compile Include="Misc\BitArrayExtensions.cs" />
     <Compile Include="Domain\FFunction.cs" />
     <Compile Include="Domain\DataBlock\InitialPermutedDataBlock.cs" />
@@ -60,6 +65,9 @@
     <Compile Include="Misc\ByteArrayExtensions.cs" />
     <Compile Include="Misc\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

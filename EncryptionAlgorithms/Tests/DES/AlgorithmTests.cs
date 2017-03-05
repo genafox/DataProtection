@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Linq;
-using System.Text;
+using Autofac;
 using DES.Domain;
-using DES.Domain.Key;
-using DES.Domain.SBox;
 using DES.Infrastructure;
+using DES.IoC;
 using DES.Misc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Tests.DES.Utils;
 
 namespace Tests.DES
 {
     [TestClass]
     public class AlgorithmTests
     {
+        private readonly IContainer resolver = ContainerConfigurator.GetContainer();
+
         [TestMethod]
         public void Encrypt_WhenDataAndKeyAreValid_ReturnsEncryptedData()
         {
@@ -22,7 +22,7 @@ namespace Tests.DES
 
             var keyBits = new BitArray("13-34-57-79-9B-BC-DF-F1".GetBytesFromHex());
 
-            Algorithm algorithm = FakeObjectsFactory.CreateAlgorithm();
+            var algorithm = this.resolver.Resolve<Algorithm>();
 
             BitArray[] encryptedResult = parsedToken.BitBlocks.Select(block => algorithm.Encrypt(block, keyBits)).ToArray();
             BitArray[] decryptedResult = encryptedResult.Select(block => algorithm.Decrypt(block, keyBits)).ToArray();

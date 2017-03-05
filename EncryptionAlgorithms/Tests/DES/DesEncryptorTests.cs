@@ -1,25 +1,22 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using Autofac;
 using DES;
-using DES.Domain;
-using DES.Infrastructure;
-using DES.Misc;
+using DES.IoC;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Tests.DES.Utils;
 
 namespace Tests.DES
 {
     [TestClass]
     public class DesEncryptorTests
     {
+        private readonly IContainer resolver = ContainerConfigurator.GetContainer();
+
         [TestMethod]
         public void Encrypt_WhenDataAndKeyAreValid_ReturnsEncryptedString()
         {
             string originalMessage = "hello world";
             string key = "13-34-57-79-9B-BC-DF-F1";
 
-            Algorithm algorithm = FakeObjectsFactory.CreateAlgorithm();
-            var encryptor = new DesEncryptor(algorithm);
+            var encryptor = this.resolver.Resolve<DesEncryptor>();
 
             string encryptedMessage = encryptor.Encrypt(originalMessage, key);
 
@@ -32,8 +29,7 @@ namespace Tests.DES
             string originalMessage = "hello world";
             string key = "13-34-57-79-9B-BC-DF-F1";
 
-            Algorithm algorithm = FakeObjectsFactory.CreateAlgorithm();
-            var encryptor = new DesEncryptor(algorithm);
+            var encryptor = this.resolver.Resolve<DesEncryptor>();
 
             string encryptedMessage = encryptor.Encrypt(originalMessage, key);
 

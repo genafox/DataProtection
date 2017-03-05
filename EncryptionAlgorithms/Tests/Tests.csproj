@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -53,7 +57,6 @@
     <Compile Include="DES\AlgorithmTests.cs" />
     <Compile Include="DES\DesEncryptorTests.cs" />
     <Compile Include="DES\ParsedTokenTests.cs" />
-    <Compile Include="DES\Utils\FakeObjectsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +64,9 @@
       <Project>{FB42B16B-506B-4885-9B41-642F928A1ABF}</Project>
       <Name>DES</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
