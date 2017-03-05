@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace DES.Infrastructure
 {
-    public class ParsedToken
+    public class Token
     {
-        public ParsedToken(int originalBytesCount, IEnumerable<BitArray> extractedBits)
+        public Token(int originalBytesCount, IEnumerable<BitArray> extractedBits)
         {
             OriginalBytesCount = originalBytesCount;
-            ExtractedBits = extractedBits;
+            BitBlocks = extractedBits;
         }
 
         public int OriginalBytesCount { get; }
 
-        public IEnumerable<BitArray> ExtractedBits { get; }
+        public IEnumerable<BitArray> BitBlocks { get; }
     }
 }

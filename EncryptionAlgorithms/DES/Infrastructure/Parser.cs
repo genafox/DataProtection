@@ -12,9 +12,16 @@ namespace DES.Infrastructure
         private const int BytesIn64Bits = 8;
         private const int BitsInByte = 8;
 
-        public ParsedToken Parse(string message)
+        public Parser(Encoding encoding = null)
         {
-            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            Encoding = encoding ?? Encoding.UTF8;
+        }
+
+        public Encoding Encoding { get; }
+
+        public Token ParseText(string message)
+        {
+            byte[] messageBytes = this.Encoding.GetBytes(message);
             int originalBytesCount = messageBytes.Length;
 
             messageBytes = CompleteTo64BitsBlocks(messageBytes);
@@ -29,12 +36,32 @@ namespace DES.Infrastructure
                 skip += BytesIn64Bits;
             }
 
-            return new ParsedToken(originalBytesCount, bitsBlocks);
+            return new Token(originalBytesCount, bitsBlocks);
         }
 
-        public string GetString(ParsedToken token)
+        public Token ParseEncryptedText(string encryptedMessage)
         {
-            BitArray messageBits = new BitArray(new bool[0]).Concat(token.ExtractedBits.ToArray());
+            byte[] messageBytes = this.Encoding.GetBytes(encryptedMessage);
+            int originalBytesCount = messageBytes.Length;
+
+            messageBytes = CompleteTo64BitsBlocks(messageBytes);
+            var bitsBlocks = new List<BitArray>();
+
+            int skip = 0;
+            while (skip < messageBytes.Length)
+            {
+                byte[] block = messageBytes.Skip(skip).Take(BytesIn64Bits).ToArray();
+                bitsBlocks.Add(new BitArray(block));
+
+                skip += BytesIn64Bits;
+            }
+
+            return new Token(originalBytesCount, bitsBlocks);
+        }
+
+        public string GetDecryptedText(Token token)
+        {
+            BitArray messageBits = new BitArray(new bool[0]).Concat(token.BitBlocks.ToArray());
 
             byte[] messageBytes = new byte[messageBits.Length / BitsInByte];
             messageBits.CopyTo(messageBytes, 0);

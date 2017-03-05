@@ -6,14 +6,14 @@ using DES.Domain.Key;
 
 namespace DES.Domain
 {
-    public class Encryptor
+    public class Algorithm
     {
         private const int RoundsCount = 16;
 
         private readonly FFunction ffunction;
         private readonly CompressedPermutedKeyFactory keyFactory;
 
-        public Encryptor(FFunction ffunction, CompressedPermutedKeyFactory keyFactory)
+        public Algorithm(FFunction ffunction, CompressedPermutedKeyFactory keyFactory)
         {
             this.ffunction = ffunction;
             this.keyFactory = keyFactory;

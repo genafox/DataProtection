@@ -19,21 +19,21 @@ namespace Tests.DES
         {
             string originalMessage = "hello world";
             var parser = new Parser();
-            ParsedToken token = parser.Parse(originalMessage);
+            Token token = parser.Parse(originalMessage);
 
             var keyBits = new BitArray("13-34-57-79-9B-BC-DF-F1".GetBytesFromHex());
 
-            Encryptor encryptor = CreateEncryptor();
+            Algorithm algorithm = CreateEncryptor();
 
-            BitArray[] encryptedResult = token.ExtractedBits.Select(block => encryptor.Encrypt(block, keyBits)).ToArray();
-            BitArray[] decryptedResult = encryptedResult.Select(block => encryptor.Decrypt(block, keyBits)).ToArray();
+            BitArray[] encryptedResult = token.ExtractedBits.Select(block => algorithm.Encrypt(block, keyBits)).ToArray();
+            BitArray[] decryptedResult = encryptedResult.Select(block => algorithm.Decrypt(block, keyBits)).ToArray();
 
-            string decryptedMessage = parser.GetString(new ParsedToken(token.OriginalBytesCount, decryptedResult));
+            string decryptedMessage = parser.GetString(new Token(token.OriginalBytesCount, decryptedResult));
 
             Assert.AreEqual(originalMessage, decryptedMessage);
         }
 
-        private static Encryptor CreateEncryptor()
+        private static Algorithm CreateEncryptor()
         {
             var compressedKeyFactory = new CompressedPermutedKeyFactory();
 
@@ -41,7 +41,7 @@ namespace Tests.DES
             var sboxAddressesFactory = new SBoxAddressFactory();
             var ffunction = new FFunction(sboxAddressesFactory, sboxFunction);
 
-            return new Encryptor(ffunction, compressedKeyFactory);
+            return new Algorithm(ffunction, compressedKeyFactory);
         }
     }
 }

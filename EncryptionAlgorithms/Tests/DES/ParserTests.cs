@@ -32,7 +32,7 @@ namespace Tests.DES
         {
             var parser = new Parser();
             string originalMessage = "hello world";
-            ParsedToken parsedMessage = parser.Parse(originalMessage);
+            Token parsedMessage = parser.Parse(originalMessage);
 
             string result = parser.GetString(parsedMessage);
 
