@@ -12,7 +12,7 @@ namespace DES.Infrastructure
 
 		public ParsedToken(string message, Encoding encoding = null)
         {
-			this.Encoding = encoding ?? Encoding.UTF8;
+			this.Encoding = encoding ?? Encoding.Default;
 
             byte[] messageBytes = this.Encoding.GetBytes(message);
 

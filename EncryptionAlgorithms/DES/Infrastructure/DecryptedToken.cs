@@ -14,7 +14,7 @@ namespace DES.Infrastructure
 
         private DecryptedToken(Encoding encoding = null)
         {
-            this.Encoding = encoding ?? Encoding.UTF8;
+            this.Encoding = encoding ?? Encoding.Default;
         }
 
         public DecryptedToken(int originalBytesCount, IEnumerable<BitArray> decryptedBitBlocks, Encoding encoding = null) : this(encoding)

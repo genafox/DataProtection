@@ -50,8 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="DES\EncryptorTests.cs" />
+    <Compile Include="DES\AlgorithmTests.cs" />
+    <Compile Include="DES\DesEncryptorTests.cs" />
     <Compile Include="DES\ParsedTokenTests.cs" />
+    <Compile Include="DES\Utils\FakeObjectsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
