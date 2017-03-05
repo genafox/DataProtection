@@ -19,7 +19,7 @@ namespace DES.Infrastructure
 
         public Encoding Encoding { get; }
 
-        public Token ParseText(string message)
+        public ParsedToken ParseText(string message)
         {
             byte[] messageBytes = this.Encoding.GetBytes(message);
             int originalBytesCount = messageBytes.Length;
@@ -36,10 +36,10 @@ namespace DES.Infrastructure
                 skip += BytesIn64Bits;
             }
 
-            return new Token(originalBytesCount, bitsBlocks);
+            return new ParsedToken(originalBytesCount, bitsBlocks);
         }
 
-        public Token ParseEncryptedText(string encryptedMessage)
+        public ParsedToken ParseEncryptedText(string encryptedMessage)
         {
             byte[] messageBytes = this.Encoding.GetBytes(encryptedMessage);
             int originalBytesCount = messageBytes.Length;
@@ -56,10 +56,10 @@ namespace DES.Infrastructure
                 skip += BytesIn64Bits;
             }
 
-            return new Token(originalBytesCount, bitsBlocks);
+            return new ParsedToken(originalBytesCount, bitsBlocks);
         }
 
-        public string GetDecryptedText(Token token)
+        public string GetDecryptedText(ParsedToken token)
         {
             BitArray messageBits = new BitArray(new bool[0]).Concat(token.BitBlocks.ToArray());
 

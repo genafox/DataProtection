@@ -19,7 +19,7 @@ namespace Tests.DES
         {
             string originalMessage = "hello world";
             var parser = new Parser();
-            Token token = parser.Parse(originalMessage);
+            ParsedToken token = parser.Parse(originalMessage);
 
             var keyBits = new BitArray("13-34-57-79-9B-BC-DF-F1".GetBytesFromHex());
 
@@ -28,7 +28,7 @@ namespace Tests.DES
             BitArray[] encryptedResult = token.ExtractedBits.Select(block => algorithm.Encrypt(block, keyBits)).ToArray();
             BitArray[] decryptedResult = encryptedResult.Select(block => algorithm.Decrypt(block, keyBits)).ToArray();
 
-            string decryptedMessage = parser.GetString(new Token(token.OriginalBytesCount, decryptedResult));
+            string decryptedMessage = parser.GetString(new ParsedToken(token.OriginalBytesCount, decryptedResult));
 
             Assert.AreEqual(originalMessage, decryptedMessage);
         }

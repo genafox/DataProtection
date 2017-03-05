@@ -19,7 +19,7 @@ namespace DES
 
         public string Encrypt(string message, string hexKey)
         {
-            Token parsedToken = this.parser.ParseText(message);
+            ParsedToken parsedToken = this.parser.ParseText(message);
             var keyBits = new BitArray(hexKey.GetBytesFromHex());
 
             BitArray[] encryptedBits = parsedToken.BitBlocks
@@ -32,14 +32,14 @@ namespace DES
 
         public string Decrypt(string encryptedMessage, string hexKey)
         {
-            Token token = this.parser.Parse(encryptedMessage);
+            ParsedToken token = this.parser.Parse(encryptedMessage);
             var keyBits = new BitArray(hexKey.GetBytesFromHex());
 
             BitArray[] dencryptedResult = token.ExtractedBits
                 .Select(bitsBlock => algorithm.Decrypt(bitsBlock, keyBits))
                 .ToArray();
 
-            string decryptedMessage = parser.GetString(new Token(token.OriginalBytesCount, decryptedResult));
+            string decryptedMessage = parser.GetString(new ParsedToken(token.OriginalBytesCount, decryptedResult));
         }
     }
 }

@@ -51,7 +51,7 @@
     <Compile Include="Domain\SBox\SBoxTable.cs" />
     <Compile Include="Infrastructure\DecryptedToken.cs" />
     <Compile Include="Infrastructure\EncryptedToken.cs" />
-    <Compile Include="Infrastructure\Token.cs" />
+    <Compile Include="Infrastructure\ParsedToken.cs" />
     <Compile Include="Infrastructure\Parser.cs" />
     <Compile Include="Misc\BitArrayExtensions.cs" />
     <Compile Include="Domain\FFunction.cs" />
