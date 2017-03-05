@@ -12,36 +12,36 @@ namespace DES.Infrastructure
         private const int BytesIn64Bits = 8;
         private const int BitsInByte = 8;
 
-        public IEnumerable<BitArray> Parse(string message)
+        public ParsedToken Parse(string message)
         {
-            byte[] messageBytes = Encoding.Default.GetBytes(message);
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            int originalBytesCount = messageBytes.Length;
 
             messageBytes = CompleteTo64BitsBlocks(messageBytes);
-
-            var result = new List<BitArray>();
+            var bitsBlocks = new List<BitArray>();
 
             int skip = 0;
             while (skip < messageBytes.Length)
             {
                 byte[] block = messageBytes.Skip(skip).Take(BytesIn64Bits).ToArray();
-                result.Add(new BitArray(block));
+                bitsBlocks.Add(new BitArray(block));
 
                 skip += BytesIn64Bits;
             }
 
-            return result;
+            return new ParsedToken(originalBytesCount, bitsBlocks);
         }
 
-        public string GetHexString(IEnumerable<BitArray> bytesBlocks)
+        public string GetString(ParsedToken token)
         {
-            BitArray messageBits = new BitArray(new bool[0]).Concat(bytesBlocks.ToArray());
+            BitArray messageBits = new BitArray(new bool[0]).Concat(token.ExtractedBits.ToArray());
 
             byte[] messageBytes = new byte[messageBits.Length / BitsInByte];
             messageBits.CopyTo(messageBytes, 0);
 
-            string result = BitConverter.ToString(messageBytes);
+            string result = Encoding.UTF8.GetString(messageBytes, 0, token.OriginalBytesCount);
 
-            return result.Replace("-", "");
+            return result;
         }
 
         private byte[] CompleteTo64BitsBlocks(byte[] messageBytes)

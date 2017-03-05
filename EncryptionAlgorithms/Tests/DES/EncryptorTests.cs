@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Dynamic;
 using System.Linq;
 using DES.Domain;
 using DES.Domain.Key;
 using DES.Domain.SBox;
+using DES.Infrastructure;
+using DES.Misc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.DES
@@ -14,30 +17,31 @@ namespace Tests.DES
         [TestMethod]
         public void Encrypt_WhenDataAndKeyAreValid_ReturnsEncryptedData()
         {
-            byte[] messageBytes = HexStringToBytes("01-23-45-67-89-AB-CD-EF");
-            byte[] keyBytes = HexStringToBytes("13-34-57-79-9B-BC-DF-F1");
+            string originalMessage = "hello world";
+            var parser = new Parser();
+            ParsedToken token = parser.Parse(originalMessage);
 
-            byte[] expectedMessageBytes = HexStringToBytes("85-E8-13-54-0F-0A-B4-05");
+            var keyBits = new BitArray("13-34-57-79-9B-BC-DF-F1".GetBytesFromHex());
 
+            Encryptor encryptor = CreateEncryptor();
+
+            BitArray[] encryptedResult = token.ExtractedBits.Select(block => encryptor.Encrypt(block, keyBits)).ToArray();
+            BitArray[] decryptedResult = encryptedResult.Select(block => encryptor.Decrypt(block, keyBits)).ToArray();
+
+            string decryptedMessage = parser.GetString(new ParsedToken(token.OriginalBytesCount, decryptedResult));
+
+            Assert.AreEqual(originalMessage, decryptedMessage);
+        }
+
+        private static Encryptor CreateEncryptor()
+        {
             var compressedKeyFactory = new CompressedPermutedKeyFactory();
 
             var sboxFunction = new SBoxFunction();
             var sboxAddressesFactory = new SBoxAddressFactory();
             var ffunction = new FFunction(sboxAddressesFactory, sboxFunction);
 
-            var encryptor = new Encryptor(ffunction, compressedKeyFactory);
-
-            BitArray result = encryptor.Encrypt(new BitArray(messageBytes), new BitArray(keyBytes));
-
-            CollectionAssert.AreEqual(expectedMessageBytes, result);
-        }
-
-        private static byte[] HexStringToBytes(string hexString)
-        {
-            return hexString
-                .Split('-')
-                .Select(hex => Convert.ToByte(hex, 16))
-                .ToArray();
+            return new Encryptor(ffunction, compressedKeyFactory);
         }
     }
 }

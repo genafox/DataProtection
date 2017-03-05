@@ -16,7 +16,7 @@ namespace Tests.DES
             string originalMessage = "hello world";
             byte[] originalMessageBytes = { 104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 0, 0, 0, 0, 0 };
 
-            BitArray[] result = new Parser().Parse(originalMessage).ToArray();
+            BitArray[] result = new Parser().Parse(originalMessage).ExtractedBits.ToArray();
 
             CollectionAssert.AreEqual(
                 new BitArray(originalMessageBytes.Take(BytesIn64Bits).ToArray()),
@@ -28,18 +28,15 @@ namespace Tests.DES
         }
 
         [TestMethod]
-        public void GetHexString_ReturnsCorrectHexString()
+        public void GetString_ReturnsCorrectString()
         {
-           var originalMessageBits = new[]
-            {
-                new BitArray(new byte[] { 104, 101, 108, 108, 111, 32, 119, 111 }),
-                new BitArray(new byte[] { 114, 108, 100, 0, 0, 0, 0, 0 })
-            };
-            string originalMessageHex = "68-65-6C-6C-6F-20-77-6F-72-6C-64-00-00-00-00-00".Replace("-", "");
+            var parser = new Parser();
+            string originalMessage = "hello world";
+            ParsedToken parsedMessage = parser.Parse(originalMessage);
 
-            string result = new Parser().GetHexString(originalMessageBits);
+            string result = parser.GetString(parsedMessage);
 
-            Assert.AreEqual(originalMessageHex, result);
+            Assert.AreEqual(originalMessage, result);
         }
     }
 }

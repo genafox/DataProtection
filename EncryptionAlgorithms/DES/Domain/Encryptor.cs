@@ -43,5 +43,30 @@ namespace DES.Domain
 
             return encrypted;
         }
+
+        public BitArray Decrypt(BitArray encryptedBlock, BitArray originalKey)
+        {
+            var iterations = new Dictionary<int, HalvesBlock>
+            {
+                [RoundsCount + 1] = new InitialPermutedDataBlock(encryptedBlock).Halves
+            };
+
+            IDictionary<int, CompressedPermutedKey> keys = keyFactory.Generate(originalKey);
+
+            for (int i = RoundsCount; i > 0; i--)
+            {
+                HalvesBlock previousBlock = iterations[i + 1];
+                BitArray currentKey = keys[i].CompressedValue;
+
+                var left = previousBlock.Right;
+                var right = previousBlock.Left.Xor(this.ffunction.Invoke(previousBlock.Right, currentKey));
+
+                iterations.Add(i, new HalvesBlock(left, right));
+            }
+
+            BitArray decrypted = new FinalPermutedDataBlock(iterations.Last().Value).Value;
+
+            return decrypted;
+        }
     }
 }

@@ -48,12 +48,14 @@
     <Compile Include="Domain\SBox\SBoxAddressFactory.cs" />
     <Compile Include="Domain\SBox\SBoxFunction.cs" />
     <Compile Include="Domain\SBox\SBoxTable.cs" />
+    <Compile Include="Infrastructure\ParsedToken.cs" />
     <Compile Include="Infrastructure\Parser.cs" />
     <Compile Include="Misc\BitArrayExtensions.cs" />
     <Compile Include="Domain\FFunction.cs" />
     <Compile Include="Domain\DataBlock\InitialPermutedDataBlock.cs" />
     <Compile Include="Domain\Key\InitialPermutedKey.cs" />
     <Compile Include="Domain\Key\CompressedPermutedKeyFactory.cs" />
+    <Compile Include="Misc\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
