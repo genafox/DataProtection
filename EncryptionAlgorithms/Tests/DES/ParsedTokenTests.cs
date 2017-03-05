@@ -6,17 +6,17 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Tests.DES
 {
     [TestClass]
-    public class ParserTests
+    public class ParsedTokenTests
     {
         private const int BytesIn64Bits = 8;
 
         [TestMethod]
-        public void Parse_ReturnsCorrectSecuenceOfBits()
+        public void Constructor_CorrectSecuenceOfBitsIsExstractedFromString()
         {
             string originalMessage = "hello world";
             byte[] originalMessageBytes = { 104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 0, 0, 0, 0, 0 };
 
-            BitArray[] result = new Parser().Parse(originalMessage).ExtractedBits.ToArray();
+            BitArray[] result = new ParsedToken(originalMessage).BitBlocks.ToArray();
 
             CollectionAssert.AreEqual(
                 new BitArray(originalMessageBytes.Take(BytesIn64Bits).ToArray()),
@@ -25,18 +25,6 @@ namespace Tests.DES
             CollectionAssert.AreEqual(
                 new BitArray(originalMessageBytes.Skip(BytesIn64Bits).Take(BytesIn64Bits).ToArray()),
                 result[1]);
-        }
-
-        [TestMethod]
-        public void GetString_ReturnsCorrectString()
-        {
-            var parser = new Parser();
-            string originalMessage = "hello world";
-            ParsedToken parsedMessage = parser.Parse(originalMessage);
-
-            string result = parser.GetString(parsedMessage);
-
-            Assert.AreEqual(originalMessage, result);
         }
     }
 }

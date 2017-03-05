@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Dynamic;
+﻿using System.Collections;
 using System.Linq;
 using DES.Domain;
 using DES.Domain.Key;
@@ -18,19 +16,18 @@ namespace Tests.DES
         public void Encrypt_WhenDataAndKeyAreValid_ReturnsEncryptedData()
         {
             string originalMessage = "hello world";
-            var parser = new Parser();
-            ParsedToken token = parser.Parse(originalMessage);
+            var parsedToken = new ParsedToken(originalMessage);
 
             var keyBits = new BitArray("13-34-57-79-9B-BC-DF-F1".GetBytesFromHex());
 
             Algorithm algorithm = CreateEncryptor();
 
-            BitArray[] encryptedResult = token.ExtractedBits.Select(block => algorithm.Encrypt(block, keyBits)).ToArray();
+            BitArray[] encryptedResult = parsedToken.BitBlocks.Select(block => algorithm.Encrypt(block, keyBits)).ToArray();
             BitArray[] decryptedResult = encryptedResult.Select(block => algorithm.Decrypt(block, keyBits)).ToArray();
 
-            string decryptedMessage = parser.GetString(new ParsedToken(token.OriginalBytesCount, decryptedResult));
+            var decryptedToken = new DecryptedToken(parsedToken.OriginalBytesCount, decryptedResult);
 
-            Assert.AreEqual(originalMessage, decryptedMessage);
+            Assert.AreEqual(originalMessage, decryptedToken.ToString());
         }
 
         private static Algorithm CreateEncryptor()

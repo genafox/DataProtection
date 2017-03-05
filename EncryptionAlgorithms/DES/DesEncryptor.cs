@@ -9,17 +9,15 @@ namespace DES
     public class DesEncryptor
     {
         private readonly Algorithm algorithm;
-        private readonly Parser parser;
 
-        public DesEncryptor(Algorithm algorithm, Parser parser)
+        public DesEncryptor(Algorithm algorithm)
         {
             this.algorithm = algorithm;
-            this.parser = parser;
         }
 
         public string Encrypt(string message, string hexKey)
         {
-            ParsedToken parsedToken = this.parser.ParseText(message);
+            var parsedToken = new ParsedToken(message);
             var keyBits = new BitArray(hexKey.GetBytesFromHex());
 
             BitArray[] encryptedBits = parsedToken.BitBlocks
@@ -27,19 +25,22 @@ namespace DES
                 .ToArray();
             
             var encryptedToken = new EncryptedToken(parsedToken.OriginalBytesCount, encryptedBits);
+
             return encryptedToken.ToString();
         }
 
         public string Decrypt(string encryptedMessage, string hexKey)
         {
-            ParsedToken token = this.parser.Parse(encryptedMessage);
+            var encryptedToken = new EncryptedToken(encryptedMessage);
             var keyBits = new BitArray(hexKey.GetBytesFromHex());
 
-            BitArray[] dencryptedResult = token.ExtractedBits
+            BitArray[] dencryptedResult = encryptedToken.EncryptedBitBlocks
                 .Select(bitsBlock => algorithm.Decrypt(bitsBlock, keyBits))
                 .ToArray();
 
-            string decryptedMessage = parser.GetString(new ParsedToken(token.OriginalBytesCount, decryptedResult));
+            var decryptedToken = new DecryptedToken(encryptedToken.OriginalBytesCount, dencryptedResult);
+
+            return decryptedToken.ToString();
         }
     }
 }
