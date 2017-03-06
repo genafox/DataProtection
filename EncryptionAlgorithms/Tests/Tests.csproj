@@ -60,9 +60,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{B4EB7E16-9473-4CCB-9DE8-6566091ED817}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{D79D8A78-A370-4396-ABD9-F6E55E6F8973}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DES\DES.csproj">
       <Project>{FB42B16B-506B-4885-9B41-642F928A1ABF}</Project>
       <Name>DES</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IoC\IoC.csproj">
+      <Project>{2D588DE1-787F-4878-BE1F-569CB4585A60}</Project>
+      <Name>IoC</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

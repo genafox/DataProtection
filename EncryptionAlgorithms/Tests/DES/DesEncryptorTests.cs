@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using DES;
-using DES.IoC;
+using Contracts.Interfaces;
+using IoC;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.DES
@@ -8,7 +8,7 @@ namespace Tests.DES
     [TestClass]
     public class DesEncryptorTests
     {
-        private readonly IContainer resolver = ContainerConfigurator.GetContainer();
+        private readonly IContainer resolver = ContainerInitializer.GetContainer();
 
         [TestMethod]
         public void Encrypt_WhenDataAndKeyAreValid_ReturnsEncryptedString()
@@ -16,7 +16,7 @@ namespace Tests.DES
             string originalMessage = "hello world";
             string key = "13-34-57-79-9B-BC-DF-F1";
 
-            var encryptor = this.resolver.Resolve<DesEncryptor>();
+            var encryptor = this.resolver.Resolve<IDataEncryptor>();
 
             string encryptedMessage = encryptor.Encrypt(originalMessage, key);
 
@@ -29,7 +29,7 @@ namespace Tests.DES
             string originalMessage = "hello world";
             string key = "13-34-57-79-9B-BC-DF-F1";
 
-            var encryptor = this.resolver.Resolve<DesEncryptor>();
+            var encryptor = this.resolver.Resolve<IDataEncryptor>();
 
             string encryptedMessage = encryptor.Encrypt(originalMessage, key);
 

@@ -1,0 +1,7 @@
+
+[INFO] - DES.DesEncryptor.Encrypt - Start - Original message: hello world - Key: 13-34-57-79-9B-BC-DF-F1
+[INFO] - DES.DesEncryptor.Encrypt - End - Encrypted message: 85BA5C74636F2CAC8E8ECF57F6A8AAB7+12
+[INFO] - DES.DesEncryptor.Encrypt - Start - Original message: hello world - Key: 13-34-57-79-9B-BC-DF-F1
+[INFO] - DES.DesEncryptor.Encrypt - End - Encrypted message: 85BA5C74636F2CAC8E8ECF57F6A8AAB7+12
+[INFO] - DES.DesEncryptor.Decrypt - Start - Encrypted message: 85BA5C74636F2CAC8E8ECF57F6A8AAB7+12 - Key: 13-34-57-79-9B-BC-DF-F1
+[INFO] - DES.DesEncryptor.Decrypt - End - Decrypted message: hello world

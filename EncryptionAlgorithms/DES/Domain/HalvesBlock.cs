@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using DES.Misc;
+using Common.Extensions;
 
 namespace DES.Domain
 {

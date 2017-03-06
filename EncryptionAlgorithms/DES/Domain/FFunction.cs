@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DES.Domain.SBox;
-using DES.Misc;
+using Common.Extensions;
 
 namespace DES.Domain
 {

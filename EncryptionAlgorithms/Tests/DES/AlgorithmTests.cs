@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Linq;
 using Autofac;
+using Common.Extensions;
 using DES.Domain;
 using DES.Infrastructure;
-using DES.IoC;
-using DES.Misc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IoC;
 
 namespace Tests.DES
 {
     [TestClass]
     public class AlgorithmTests
     {
-        private readonly IContainer resolver = ContainerConfigurator.GetContainer();
+        private readonly IContainer resolver = ContainerInitializer.GetContainer();
 
         [TestMethod]
         public void Encrypt_WhenDataAndKeyAreValid_ReturnsEncryptedData()

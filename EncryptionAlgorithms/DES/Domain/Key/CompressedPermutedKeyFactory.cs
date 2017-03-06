@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using DES.Misc;
+using Common.Extensions;
 
 namespace DES.Domain.Key
 {

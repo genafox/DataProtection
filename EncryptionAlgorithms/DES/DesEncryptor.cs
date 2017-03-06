@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Linq;
-using System.Text;
+using Common.Extensions;
+using Contracts.Interfaces;
 using DES.Domain;
 using DES.Infrastructure;
-using DES.Misc;
 
 namespace DES
 {
-    public class DesEncryptor
+    public class DesEncryptor : IDataEncryptor
     {
         private readonly Algorithm algorithm;
 

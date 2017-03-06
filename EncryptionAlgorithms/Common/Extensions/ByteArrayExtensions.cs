@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DES.Misc
+namespace Common.Extensions
 {
     public static class ByteArrayExtensions
     {
