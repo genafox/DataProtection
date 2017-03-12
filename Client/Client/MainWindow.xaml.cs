@@ -3,6 +3,7 @@ using System.Windows;
 using Autofac;
 using Client.Models;
 using Client.ViewModels;
+using Contracts.Interfaces;
 using DES;
 using DES.Domain.Interfaces;
 using IoC;
@@ -16,14 +17,14 @@ namespace Client
     public partial class MainWindow : Window
     {
         private readonly IContainer resolver = ContainerInitializer.GetContainer();
-        private DesEncryptor encryptor;
+        private IDataEncryptor encryptor;
         private BitArray key;
 
         public MainWindow()
         {
             InitializeComponent();
             SignalR();
-            encryptor = new DesEncryptor(ContainerInitializer.GetContainer().Resolve<IDesAlgorithm>());
+            encryptor = resolver.Resolve<IDataEncryptor>();
             GenerateKeyButton_Click(null, null);
         }
 
