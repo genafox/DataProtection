@@ -48,9 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{B4EB7E16-9473-4CCB-9DE8-6566091ED817}</Project>
       <Name>Common</Name>
@@ -67,6 +64,9 @@
       <Project>{96A515EA-F7AC-4185-AEC9-8802D3C9D71D}</Project>
       <Name>Logs</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

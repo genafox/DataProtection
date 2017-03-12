@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Common.Extensions;
 
-namespace DES.Infrastructure
+namespace DES.Domain.Tokens
 {
     public class ParsedToken
     {
@@ -29,7 +29,7 @@ namespace DES.Infrastructure
 
 		public Encoding Encoding { get; }
 
-		private byte[] CompleteTo64BitsBlocks(byte[] messageBytes)
+		private static byte[] CompleteTo64BitsBlocks(byte[] messageBytes)
 		{
 			if (messageBytes.Length % BytesIn64Bits > 0)
 			{

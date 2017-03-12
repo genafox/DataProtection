@@ -13,9 +13,9 @@ namespace Logs.Loggers
             this.logFilePath = logFilePath;
         }
 
-        public void LogInfo(string message)
+        public void LogInfo(params string[] messages)
         {
-            string log = $"{Environment.NewLine}[INFO] - {message}";
+            string log = $"{Environment.NewLine}[INFO] - {string.Join("\r\n", messages)}";
             File.AppendAllText(this.logFilePath, log);
         }
     }

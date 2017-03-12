@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using DES.Domain.SBox;
 using Common.Extensions;
+using DES.Domain.Interfaces;
 
 namespace DES.Domain
 {
-    public class FFunction
-    {
+    public class FFunction : IFFunction
+	{
         private static readonly int[] ExtensionTable =
         {
             32, 1, 2, 3, 4, 5,

@@ -63,5 +63,12 @@ namespace Common.Extensions
                 yield return getElementFunc(bit);
             }
         }
-    }
+
+		public static string ToBinaryString(this BitArray source)
+		{
+			char[] symbols = source.Select(bit => bit ? '1' : '0').ToArray();
+
+			return new string(symbols);
+		}
+	}
 }

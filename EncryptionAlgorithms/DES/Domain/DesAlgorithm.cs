@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using DES.Domain.DataBlock;
+using DES.Domain.Interfaces;
 using DES.Domain.Key;
 
 namespace DES.Domain
 {
-    public class Algorithm
-    {
+    public class DesAlgorithm : IDesAlgorithm
+	{
         private const int RoundsCount = 16;
 
-        private readonly FFunction ffunction;
-        private readonly CompressedPermutedKeyFactory keyFactory;
+        private readonly IFFunction ffunction;
+        private readonly ICompressedPermutedKeyFactory keyFactory;
 
-        public Algorithm(FFunction ffunction, CompressedPermutedKeyFactory keyFactory)
+        public DesAlgorithm(IFFunction ffunction, ICompressedPermutedKeyFactory keyFactory)
         {
             this.ffunction = ffunction;
             this.keyFactory = keyFactory;
@@ -26,7 +27,7 @@ namespace DES.Domain
                 [0] = new InitialPermutedDataBlock(originalBlock).Halves
             };
 
-            IDictionary<int, CompressedPermutedKey> keys = keyFactory.Generate(originalKey);
+            IDictionary<int, CompressedPermutedKey> keys = this.keyFactory.Generate(originalKey);
 
             for (int i = 1; i <= RoundsCount; i++)
             {
@@ -51,7 +52,7 @@ namespace DES.Domain
                 [RoundsCount + 1] = new InitialPermutedDataBlock(encryptedBlock).Halves
             };
 
-            IDictionary<int, CompressedPermutedKey> keys = keyFactory.Generate(originalKey);
+            IDictionary<int, CompressedPermutedKey> keys = this.keyFactory.Generate(originalKey);
 
             for (int i = RoundsCount; i > 0; i--)
             {

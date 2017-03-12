@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Common.Extensions;
 
-namespace DES.Infrastructure
+namespace DES.Domain.Tokens
 {
     public class EncryptedToken
     {

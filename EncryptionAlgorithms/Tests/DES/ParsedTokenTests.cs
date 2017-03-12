@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
-using DES.Infrastructure;
+using DES.Domain.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.DES

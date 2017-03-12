@@ -2,8 +2,8 @@
 using System.Linq;
 using Autofac;
 using Common.Extensions;
-using DES.Domain;
-using DES.Infrastructure;
+using DES.Domain.Interfaces;
+using DES.Domain.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IoC;
 
@@ -22,7 +22,7 @@ namespace Tests.DES
 
             var keyBits = new BitArray("13-34-57-79-9B-BC-DF-F1".GetBytesFromHex());
 
-            var algorithm = this.resolver.Resolve<Algorithm>();
+            var algorithm = this.resolver.Resolve<IDesAlgorithm>();
 
             BitArray[] encryptedResult = parsedToken.BitBlocks.Select(block => algorithm.Encrypt(block, keyBits)).ToArray();
             BitArray[] decryptedResult = encryptedResult.Select(block => algorithm.Decrypt(block, keyBits)).ToArray();

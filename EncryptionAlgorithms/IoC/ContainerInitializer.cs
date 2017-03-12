@@ -3,58 +3,80 @@ using Common.LogDecorators;
 using Contracts.Interfaces;
 using DES;
 using DES.Domain;
+using DES.Domain.Interfaces;
 using DES.Domain.Key;
 using DES.Domain.SBox;
+using DES.LogDecorators;
 using Logs.Loggers;
 
 namespace IoC
 {
-    public static class ContainerInitializer
-    {
-        private const string LogFilePath = @"../../../Logs/log.txt";
+	public static class ContainerInitializer
+	{
+		private const string LogFilePath = @"../../../Logs/log.txt";
 
-        public static IContainer GetContainer()
-        {
-            var containerBuilder = new ContainerBuilder();
+		public static IContainer GetContainer()
+		{
+			var containerBuilder = new ContainerBuilder();
 
-            RegisterComponents(containerBuilder);
+			RegisterComponents(containerBuilder);
 
-            return containerBuilder.Build();
-        }
+			return containerBuilder.Build();
+		}
 
-        private static void RegisterComponents(ContainerBuilder containerBuilder)
-        {
-            // DES components
-            containerBuilder
-                .RegisterType<CompressedPermutedKeyFactory>()
-                .AsSelf();
+		private static void RegisterComponents(ContainerBuilder containerBuilder)
+		{
+			// DES components
 
-            containerBuilder.RegisterType<SBoxAddressFactory>()
-                .AsSelf();
+			containerBuilder.RegisterType<SBoxAddressFactory>()
+				.AsSelf();
 
-            containerBuilder.RegisterType<SBoxFunction>()
-               .AsSelf();
+			containerBuilder.RegisterType<SBoxFunction>()
+			   .AsSelf();
 
-            containerBuilder.RegisterType<FFunction>()
-                .AsSelf();
+			containerBuilder.RegisterType<DesEncryptor>()
+				.Named<IDataEncryptor>("dataEncryptors");
 
-            containerBuilder.RegisterType<Algorithm>()
-                .AsSelf();
+			containerBuilder.RegisterType<DesAlgorithm>()
+				.Named<IDesAlgorithm>("desAlgorithm");
 
-            containerBuilder.RegisterType<DesEncryptor>()
-                .Named<IDataEncryptor>("dataEncryptors");
+			containerBuilder.RegisterType<CompressedPermutedKeyFactory>()
+				.Named<ICompressedPermutedKeyFactory>("desKeysFactory");
 
-            // Logs components
-            containerBuilder.RegisterType<FileLogger>()
-                .As<ILogger>()
-                .WithParameter("logFilePath", LogFilePath);
+			containerBuilder.RegisterType<FFunction>()
+				.Named<IFFunction>("desFFunction");
 
-            // Decorators
-            containerBuilder
-                .RegisterDecorator<IDataEncryptor>(
-                    (c, inner) => new DataEncryptorLogDecorator(inner, c.Resolve<ILogger>()),
-                    fromKey: "dataEncryptors")
-                .As<IDataEncryptor>();
-        }
-    }
+			// Logs components
+			containerBuilder.RegisterType<FileLogger>()
+				.As<ILogger>()
+				.WithParameter("logFilePath", LogFilePath);
+
+			// Decorators
+			containerBuilder
+				.RegisterDecorator<IDataEncryptor>(
+					(c, inner) => new DataEncryptorLogDecorator(inner, c.Resolve<ILogger>()),
+					fromKey: "dataEncryptors")
+				.As<IDataEncryptor>();
+
+			containerBuilder
+				.RegisterDecorator<IDesAlgorithm>(
+					(c, inner) => new DesAlgorithmLogDecorator(inner, c.Resolve<ILogger>()),
+					fromKey: "desAlgorithm")
+				.As<IDesAlgorithm>();
+
+			containerBuilder
+				.RegisterDecorator<ICompressedPermutedKeyFactory>(
+					(c, inner) => new CompressedPermutedKeyFactoryLogDecorator(inner, c.Resolve<ILogger>()), 
+					fromKey: "desKeysFactory")
+				.As<ICompressedPermutedKeyFactory>();
+
+			containerBuilder
+				.RegisterDecorator<IFFunction>(
+					(c, inner) => new FFunctionLogDecorator(inner, c.Resolve<ILogger>()), 
+					fromKey: "desFFunction")
+				.As<IFFunction>();
+
+
+		}
+	}
 }
