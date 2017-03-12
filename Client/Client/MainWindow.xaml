@@ -68,6 +68,7 @@
                  Grid.Column="2" 
                  Margin="10" 
                  AcceptsReturn="True"
+                 IsReadOnly="True"
                  VerticalScrollBarVisibility="Auto"
                  TextWrapping="Wrap"/>
     </Grid>

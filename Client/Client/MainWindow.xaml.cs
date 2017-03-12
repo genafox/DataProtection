@@ -40,6 +40,7 @@ namespace Client
         {
             string message = encryptor.Encrypt(MessageTextBox.Text, KeyTextBox.Text);
             Broadcast(new ChatMessage { Message = message });
+            MessageTextBox.Clear();
         }
 
         public ChatMessageViewModel ChatVm { get; set; } = new ChatMessageViewModel();
@@ -64,8 +65,9 @@ namespace Client
         {
             await Dispatcher.InvokeAsync(() =>
             {
+                LogTextBox.Text += $"Ciphertext: {msg.Message}\n";
                 string message = encryptor.Decrypt(msg.Message, KeyTextBox.Text);
-                LogTextBox.Text += $"{message}\n\r";
+                LogTextBox.Text += $"Decrypted message: {message}\n\n";
             });
         }
     }
