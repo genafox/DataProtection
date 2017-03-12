@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{B3A8BE0F-47F0-414B-AC2D-9A0460B647B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DES", "..\EncryptionAlgorithms\DES\DES.csproj", "{FB42B16B-506B-4885-9B41-642F928A1ABF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "..\EncryptionAlgorithms\Contracts\Contracts.csproj", "{D79D8A78-A370-4396-ABD9-F6E55E6F8973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\EncryptionAlgorithms\Common\Common.csproj", "{B4EB7E16-9473-4CCB-9DE8-6566091ED817}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logs", "..\EncryptionAlgorithms\Logs\Logs.csproj", "{96A515EA-F7AC-4185-AEC9-8802D3C9D71D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "..\EncryptionAlgorithms\IoC\IoC.csproj", "{2D588DE1-787F-4878-BE1F-569CB4585A60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3A8BE0F-47F0-414B-AC2D-9A0460B647B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A8BE0F-47F0-414B-AC2D-9A0460B647B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A8BE0F-47F0-414B-AC2D-9A0460B647B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A8BE0F-47F0-414B-AC2D-9A0460B647B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB42B16B-506B-4885-9B41-642F928A1ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB42B16B-506B-4885-9B41-642F928A1ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB42B16B-506B-4885-9B41-642F928A1ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB42B16B-506B-4885-9B41-642F928A1ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79D8A78-A370-4396-ABD9-F6E55E6F8973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79D8A78-A370-4396-ABD9-F6E55E6F8973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79D8A78-A370-4396-ABD9-F6E55E6F8973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79D8A78-A370-4396-ABD9-F6E55E6F8973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4EB7E16-9473-4CCB-9DE8-6566091ED817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4EB7E16-9473-4CCB-9DE8-6566091ED817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4EB7E16-9473-4CCB-9DE8-6566091ED817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4EB7E16-9473-4CCB-9DE8-6566091ED817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96A515EA-F7AC-4185-AEC9-8802D3C9D71D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96A515EA-F7AC-4185-AEC9-8802D3C9D71D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96A515EA-F7AC-4185-AEC9-8802D3C9D71D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96A515EA-F7AC-4185-AEC9-8802D3C9D71D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D588DE1-787F-4878-BE1F-569CB4585A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D588DE1-787F-4878-BE1F-569CB4585A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D588DE1-787F-4878-BE1F-569CB4585A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D588DE1-787F-4878-BE1F-569CB4585A60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

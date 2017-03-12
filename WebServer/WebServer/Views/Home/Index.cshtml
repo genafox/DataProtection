@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <!--Ссылка на библиотеку SignalR -->
+    @Scripts.Render("~/Scripts/SignalR")
+    <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
+    <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
+    <script src="~/signalr/hubs"></script>
+    @*<script src="~/Scripts/util.js"></script>*@
+</body>
+</html>
